@@ -12,7 +12,7 @@ module.exports = {
 function init(options) {
   // Merge options with the default config
   const config = {
-    ...defaultConfig,
+    ...Object.assign(defaultConfig, options.nodeConfig),
     ...options,
     treeData: options.data,
   }

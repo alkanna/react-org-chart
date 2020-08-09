@@ -34,6 +34,7 @@ class OrgChart extends PureComponent {
       disableCanvasMouseWheelZoom,
       tree,
       collapse,
+      config,
       ...options
     } = this.props
 
@@ -49,6 +50,7 @@ class OrgChart extends PureComponent {
       disableCanvasMouseMove,
       disableCanvasMouseWheelZoom,
       collapseNodes: collapse,
+      nodeConfig: config,
       ...options,
     })
   }
