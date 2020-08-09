@@ -36,6 +36,7 @@ function init(options) {
     scaleToFitId,
     resetId,
     loadConfig,
+    collapseNodes,
     disableCanvasMouseWheelZoom,
     disableCanvasMouseMove,
   } = config
@@ -112,7 +113,8 @@ function init(options) {
   treeData.y0 = elemHeight / 2
 
   // Collapse all of the children on initial load
-  treeData.children.forEach(collapse)
+  if(collapseNodes)
+    treeData.children.forEach(collapse)
 
   // Connect core variables to config so that they can be
   // used in internal rendering functions
