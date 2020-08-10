@@ -8,9 +8,8 @@ let getSubTitle = data => _.get(data, 'entity.subTitle')
 
 let getCount = data => {
   let count = _.get(data, 'entity.totalReports')
-  if (!count) { return '' }
-  let pluralEnding = count > 1 ? 's' : ''
-  return `${count} supervisee${pluralEnding}`
+  if (!count) { return 0 }
+  return `${count}`
 }
 
 let getCursorForNode = data =>
@@ -28,11 +27,21 @@ let customOnClick = (fn, onClick, config) => data => {
   }
 }
 
+let actionClick = (fn) => data => {
+  if (_.isFunction(fn)) {
+    fn(data, d3.event)
+    d3.event.stopPropagation()
+  } else {
+    return false
+  }
+}
+
 module.exports = {
   getName,
   getTitle,
   getSubTitle,
   getCount,
   getCursorForNode,
-  customOnClick
+  customOnClick,
+  actionClick
 }

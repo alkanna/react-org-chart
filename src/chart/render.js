@@ -8,6 +8,13 @@ let onClick = require('./onClick')
 let iconLink = require('./components/iconLink')
 let supervisorIcon = require('./components/supervisorIcon')
 
+let addBtn = require('./components/AddButton')
+let delBtn = require('./components/DeleteButton')
+let editBtn = require('./components/EditButton')
+let deltBtn = require('./components/DeleteButton')
+let orgChartIcon = require('./components/OrgChartIcon')
+let checkBox = require('./components/CheckBox')
+
 const CHART_NODE_CLASS = 'org-chart-node'
 const ENTITY_LINK_CLASS = 'org-chart-entity-link'
 const ENTITY_NAME_CLASS = 'org-chart-entity-name'
@@ -15,6 +22,8 @@ const ENTITY_TITLE_CLASS = 'org-chart-entity-title'
 const ENTITY_SUB_TITLE_CLASS = 'org-chart-entity-sub-title'
 const ENTITY_HIGHLIGHT = 'org-chart-entity-highlight'
 const COUNTS_CLASS = 'org-chart-counts'
+
+const ENTITY_BTN_CLASS = 'org-chart-btn'
 
 function render(config) {
   const {
@@ -62,6 +71,9 @@ function render(config) {
     onTitleClick,
     onSubTitleClick,
     onCountClick,
+    onCreate,
+    onEdit,
+    onDelete,
   } = config
 
   // Compute the new tree layout.
@@ -101,6 +113,12 @@ function render(config) {
     .attr('class', CHART_NODE_CLASS)
     .attr('transform', `translate(${parentNode.x0}, ${parentNode.y0})`)
     .on('click', onClick(config))
+    .on('mouseover', function (d, i) {
+      d3.select(this).selectAll('.' + ENTITY_BTN_CLASS).style('display', 'block')
+    })
+    .on('mouseout', function (d, i) {
+      d3.select(this).selectAll('.' + ENTITY_BTN_CLASS).style('display', 'none')
+    })
 
   // Entity Card Shadow
   nodeEnter
@@ -177,20 +195,6 @@ function render(config) {
   .text(d => _.isFunction(getSubTitle) ? getSubTitle(d) : helpers.getSubTitle(d))
   .on('click', helpers.customOnClick(onSubTitleClick, onClick, config))
 
-  // Count
-  nodeEnter
-    .append('text')
-    .attr('class', `${COUNTS_CLASS} unedited`)
-    .attr('x', nodeWidth / 2)
-    .attr('y', namePos.y + nodePaddingY + countYTopDistance)
-    .attr('dy', '.9em')
-    .style('font-size', countFontSize)
-    .style('font-weight', 400)
-    .style('cursor', 'pointer')
-    .style('fill', reportsColor)
-    .text(d => _.isFunction(getCount) ? getCount(d) : helpers.getCount(d))
-    .on('click', helpers.customOnClick(onCountClick, onClick, config))
-
   // Entity's Avatar
   nodeEnter
     .append('image')
@@ -228,6 +232,68 @@ function render(config) {
     svg: nodeLink,
     x: nodeWidth - 20,
     y: 8,
+  })
+
+  // Add's Link
+  let addLink = nodeEnter
+    .append('a')
+    .attr('class', ENTITY_BTN_CLASS)
+    .style('display', 'none')
+    .on('click', helpers.actionClick(onCreate))
+
+  addBtn({
+    svg: addLink,
+    x: 2,
+    y: 8,
+  })
+
+  // Edit Link
+  let editLink = nodeEnter
+    .append('a')
+    .attr('class', ENTITY_BTN_CLASS)
+    .style('display', 'none')
+    .on('click', helpers.actionClick(onEdit))
+
+  editBtn({
+    svg: editLink,
+    x: 2,
+    y: 32,
+  })
+
+  // Delete Link
+  let delLink = nodeEnter
+    .append('a')
+    .attr('class', ENTITY_BTN_CLASS)
+    .style('display', 'none')
+    .on('click', helpers.actionClick(onDelete))
+
+  delBtn({
+    svg: delLink,
+    x: 2,
+    y: 56,
+  })
+
+  // add org icon
+  let orgChart = nodeEnter
+    .append('a')
+    .attr('class', 'ENTITY_ORG_CHART')
+    .attr('display', d => (d.entity.totalReports > 0 ? '' : 'none'))
+    .on('click', helpers.actionClick(onCreate))
+
+  orgChartIcon ({
+    svg: orgChart,
+    x: nodeWidth / 2 - 12,
+    y: nodeHeight - 30,
+  })
+
+  // add checkbox
+  checkBox({
+    svg: nodeEnter,
+    size: 14,
+    x: 5,
+    y: nodeHeight - 20,
+    rx: 2,
+    ry: 2,
   })
 
   // Transition nodes to their new position.
@@ -274,7 +340,6 @@ function render(config) {
   svg.selectAll(`text.${ENTITY_NAME_CLASS}`).append('svg:title').text(d => getName ? getName(d) : helpers.getName(d))
   svg.selectAll(`text.${ENTITY_TITLE_CLASS}`).append('svg:title').text(d => getTitle ? getTitle(d) : helpers.getTitle(d))
   svg.selectAll(`text.${ENTITY_SUB_TITLE_CLASS}`).append('svg:title').text(d => getSubTitle ? getSubTitle(d) : helpers.getSubTitle(d))
-  svg.selectAll(`text.${COUNTS_CLASS}`).append('svg:title').text(d => getCount ? getCount(d) : helpers.getCount(d))
 
   // Render lines connecting nodes
   renderLines(config)
