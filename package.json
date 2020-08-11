@@ -1,6 +1,6 @@
 {
-  "name": "@smartprocure/react-org-chart",
-  "version": "0.4.24",
+  "name": "@tungnguyen85/react-org-chart",
+  "version": "0.4.25",
   "description": "Simple, high-performance react component for d3 org chart",
   "main": "dist/index.js",
   "directories": {
@@ -9,10 +9,10 @@
   "files": [
     "dist/index.js"
   ],
-  "homepage": "https://smartprocure.github.io/react-org-chart",
+  "homepage": "https://github.com/tungnguyen85/react-org-chart.git",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smartprocure/react-org-chart.git"
+    "url": "git+https://github.com/tungnguyen85/react-org-chart.git"
   },
   "scripts": {
     "start": "webpack --watch --mode production",

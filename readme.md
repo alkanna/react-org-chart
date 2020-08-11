@@ -7,6 +7,11 @@ This component is based on [unicef/react-org-chart](https://github.com/unicef/re
 
 # Features
 
+Adding the features:
+- Support option to choose collapse or expand nodes by default
+- Add `config` into props to override the default setting
+- Add the buttons and icons into the nodes
+
 From the previous package:
 
 - High-performance D3-based SVG rendering
