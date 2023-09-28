@@ -18,8 +18,7 @@
     "start": "webpack --watch --mode production",
     "build": "webpack --mode production",
     "clean": "rimraf dist",
-    "deploy": "cd examples && npm run deploy",
-    "prepare": "npm run build"
+    "deploy": "cd examples && npm run deploy"
   },
   "keywords": [],
   "author": "SmartProcure, based on work of Fouad Matin <m@fouad.org> and UNICEF",
