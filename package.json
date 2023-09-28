@@ -1,22 +1,23 @@
 {
-  "name": "@tungnguyen85/react-org-chart",
-  "version": "0.4.25",
+  "name": "@alkanna/react-org-chart",
+  "version": "0.4.39",
   "description": "Simple, high-performance react component for d3 org chart",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "directories": {
     "example": "src/examples"
   },
   "files": [
     "dist/index.js"
   ],
-  "homepage": "https://github.com/tungnguyen85/react-org-chart.git",
+  "homepage": "https://github.com/alkanna/react-org-chart.git",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tungnguyen85/react-org-chart.git"
+    "url": "git+https://github.com/alkanna/react-org-chart.git"
   },
   "scripts": {
-    "start": "webpack --watch --mode production",
-    "build": "webpack --mode production",
+    "start": "vite",
+    "build": "vite build",
     "clean": "rimraf dist",
     "deploy": "cd examples && npm run deploy"
   },
@@ -24,30 +25,19 @@
   "author": "SmartProcure, based on work of Fouad Matin <m@fouad.org> and UNICEF",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
     "faker": "^4.1.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.0"
+    "vite": "^4.4.9",
+    "@vitejs/plugin-react": "^4.1.0"
   },
   "peerDependencies": {
     "d3": ">= 3.x < 4",
     "react": ">= 15.x",
     "react-dom": ">= 15.x"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "stage-2"
-    ]
   },
   "dependencies": {
     "d3-save-svg": "0.0.2",

@@ -1,3 +1,3 @@
 const OrgChart = require('./react/org-chart')
 
-module.exports = OrgChart
+export { OrgChart as default };
